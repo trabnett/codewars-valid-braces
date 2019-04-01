@@ -1,33 +1,32 @@
 function validBraces(braces){
-    dict = {"{": 0, "[": 0, "(": 0}
-    arr = braces.split("")
-    arr.forEach(x => {
+    arr = braces.split("");
+    comparisonArr = [];
+    arr.forEach(function(x, i){
+        comparisonArr.push(x)
         switch(x){
-            case "{":
-                dict["{"] += 1
-                break;
             case "}":
-                dict["{"] -= 1
-                break;
-            case "[":
-                dict["["] += 1
+                if (comparisonArr[comparisonArr.length - 2] === "{"){
+                    comparisonArr.splice(-2, 2)
+                }
                 break;
             case "]":
-                dict["["] -= 1
-                break;
-            case "(":
-                dict["("] += 1
+                if (comparisonArr[comparisonArr.length - 2] === "["){
+                    comparisonArr.splice(-2, 2)
+                }
                 break;
             case ")":
-                dict["("] -= 1
+                if (comparisonArr[comparisonArr.length - 2] === "("){
+                    comparisonArr.splice(-2, 2)
+                }
                 break;
         }
     })
-    if (dict["["] === 0 && dict["{"] === 0 && dict["("] === 0){
+    if (comparisonArr.length === 0) {
         return true
     } else {
         return false
     }
   }
 
-  console.log(validBraces("[({})](]"))
+  console.log(validBraces("([{}])"))
+
